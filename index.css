@@ -1,0 +1,102 @@
+
+
+
+
+.mainHeading{
+    text-align: center; color: aliceblue;
+}
+.mainNavBar{
+    background-color: black
+}
+.cartImg,jpg{
+    vertical-align: middle;
+    width: 40%;
+    margin: 10%;
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-bottom: 0%;
+    
+}
+
+body{
+    text-align: center;
+}
+.cartText{
+    text-align: center;
+    font-family: serif;
+ }
+ .addProductModal{
+    display: flex;
+ }
+
+ .cartImg:hover{
+    transform: scale(1.1); 
+ }
+ .small-image {
+    max-width: 10px; /* Set the maximum width */
+    max-height: 10px; /* Set the maximum height */
+}
+ 
+#inputDescription{
+    padding: 5px;
+}
+
+
+.addProductModal {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Small screens (mobile) */
+@media (max-width: 576px) {
+    /* Adjust styles for small screens here */
+
+    /* Add these styles to your CSS */
+
+/* Center the main heading */
+.mainHeading {
+    text-align: center;
+}
+
+/* Style the navigation bar */
+.mainNavBar {
+    justify-content: center;
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+}
+
+/* Style the search input to take up full width on small screens */
+#searchInput {
+    flex-grow: 1;
+    max-width: none;
+    width: 100%;
+}
+
+/* Adjust the modal width for smaller screens */
+.modal-dialog {
+    max-width: 90%;
+}
+
+/* Make the product table responsive */
+#productTable {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Center the product list heading */
+#productListHeading {
+    text-align: center;
+}
+
+/* Add more responsive styles as needed */
+
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 577px) and (max-width: 992px) {
+    /* Adjust styles for medium screens here */
+}
+
+/* Large screens (desktops) */
+@media (min-width: 993px) {
+    /* Adjust styles for large screens here */
+}
