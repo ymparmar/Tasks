@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title> PRODUCT MANAGEMENT SYSTEM </title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+  <script src='localstorage.js' defer></script>
+  <script src='delete.js' defer></script>
+  <script src='search.js' defer></script>
+  <script src='deleteall.js' defer></script>
+  <script src='sort.js' defer></script>
+  <script src='img.js' defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </script>
+</head>
+
+<body style="background-color: black;">
+  <!--main heading -->
+  <h1 class="container mt-5 mainHeading">PRODUCT MANAGEMENT SYSTEM</h1>
+
+  <!-- first navbar -->
+  <div class="container mt-5 d-flex gap-3 mainNavBar">
+    <input class="form-control me-2" id="searchInput" type="search" placeholder="Search Products" aria-label="Search">
+    <div>
+    <button id="DeleteAllbtn" type="button" class="btn btn-danger gap-2" onclick="confirmDelete()">DeleteAll</button>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <!-- <img src="..." class="rounded me-2" alt="..."> -->
+          <strong class="me-auto">PRODUCT MANAGEMENT SYSTEM</strong>
+          <small>just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          ALL Product deleted
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      AddProduct
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">product info</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body addProductModal">
+            <div class="mb-3">
+
+              <input type="text" id="inputitemname" class="form-control mb-3" placeholder="itemname"
+                aria-label="Username">
+              <div class="input-group">
+                <span class="input-group-text">Description</span>
+                <textarea id="inputDescription" class="form-control" aria-label="Description"></textarea>
+              </div>
+              <br>
+              <input id="inputPrice" type="number" class="form-control mb-3" placeholder="Addprice" aria-label="Price">
+              <!-- <input class="form-control ,mb-3" type="file" id="formFile"> -->
+              <input class="form-control ,mb-3" type="file" id="inputImage">
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="addProductButton"
+              onclick="addProduct()" onclick="additemtoast()">AddProduct</button>
+              <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button> -->
+              
+
+              <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header">
+                    <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                   <strong class="me-auto">PRODUCT MANAGEMENT SYSTEM</strong>
+                    <small>just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                  <div class="toast-body">
+                    Product Added
+                  </div>
+                </div>
+              </div>
+              
+             <button type="button" class="btn btn-primary" style="display: none; " id="updateProductButton"
+              onclick="updateProduct()">Update Product</button>
+
+              <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header"> 
+                    <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                    <strong class="me-auto">PRODUCT MANAGEMENT SYSTEM</strong>
+                    <small>just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                  <div class="toast-body">
+                    Product Updated
+                  </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- container 2 main -->
+  <div class="container mt-3" style="background-color: whitesmoke; align-items: center;">
+    <h2 id="productListHeading">Product List</h2>
+    <hr>
+
+    <!-- table -->
+    <div>
+
+
+      <table id="productTable" class="table mt-3">
+        <thead>
+          <tr>
+            <th id="id" scope="col">ID
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+              </svg>
+            </th>
+            <th id="name" scope="col" data-sort-order="asc" >Name
+              <!-- <button type="button" id="sortButton" class="btn btn-primary">Sort A to Z</button> -->
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+              </svg>
+            </th>
+            <th id="Description" scope="col">Description</th>
+            <th id="Price" scope="col">Price
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+              </svg>
+            </th>
+            <!-- <th scope="col">img</th> -->
+            <th><img id="productImage" style="max-width: 10px;" src="">image</th>
+
+
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="productTableBody">
+
+        </tbody>
+      </table>
+
+      <div class="emptyProductList text-center ">
+
+      </div>
+    </div>
+
+</body>
+
+</html>
+
+
